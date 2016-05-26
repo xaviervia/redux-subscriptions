@@ -1,0 +1,18 @@
+{
+  "name": "redux-subscriptions",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "washington test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "object-difference": "^0.1.0"
+  },
+  "devDependencies": {
+    "washington": "^0.12.0"
+  }
+}
