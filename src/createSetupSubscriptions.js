@@ -24,7 +24,14 @@ const createSetupSubscriptions = () => {
             ? getDifference
             : objectDifference
 
-          return theDifference(theSelector(prevState), theSelector(newState))
+          const difference = theDifference(
+            theSelector(prevState),
+            theSelector(newState)
+          )
+
+          return difference === undefined
+            ? { before: undefined, after: undefined }
+            : { before: difference[0], after: difference[1] }
         }
 
         subscriptions
