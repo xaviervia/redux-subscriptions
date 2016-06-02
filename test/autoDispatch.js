@@ -6,7 +6,7 @@ const createSubscription = require('./helpers/createSubscription')
 
 const createSetupSubscriptions = require('../src/createSetupSubscriptions')
 
-example('call dispatch with return value of each subscription, including multiple dispatch', () => {
+example('call async dispatch with return value of each subscription, including multiple dispatch', (done) => {
   const firstAction = { the: 'firstAction' }
   const firstSubscription = () => firstAction
   const secondActions = [{ the: 'secondAction' }, { the: 'thirdAction' }]
@@ -26,7 +26,13 @@ example('call dispatch with return value of each subscription, including multipl
 
   subscriptions()
 
-  assert.equal(actions[0], firstAction)
-  assert.equal(actions[1], secondActions[0])
-  assert.equal(actions[2], secondActions[1])
+  assert.equal(actions.length, 0)
+
+  setTimeout(() => {
+    assert.equal(actions[0], firstAction)
+    assert.equal(actions[1], secondActions[0])
+    assert.equal(actions[2], secondActions[1])
+
+    done()
+  })
 })

@@ -6,12 +6,20 @@ const createSubscription = require('./helpers/createSubscription')
 
 const createSetupSubscriptions = require('../src/createSetupSubscriptions')
 
-example('send dispatch to all subscriptions', () => {
-  const firstSubscription = createSubscription()
-  const secondSubscription = createSubscription()
+example('send setTimeouted dispatch to all subscriptions', (done) => {
+  const firstSubscriptionStubAction = { the: 'firstSubscriptionStubAction' }
+  const firstSubscription = (args) => {
+    args.dispatch(firstSubscriptionStubAction)
+  }
+  const secondSubscriptionStubAction = { the: 'secondSubscriptionStubAction' }
+  const secondSubscription = (args) => {
+    args.dispatch(secondSubscriptionStubAction)
+  }
+
+  const actions = []
 
   const store = {
-    dispatch: () => {},
+    dispatch: (action) => actions.push(action),
     getState: () => {}
   }
 
@@ -22,6 +30,12 @@ example('send dispatch to all subscriptions', () => {
 
   subscriptions()
 
-  assert.equal(firstSubscription.dispatch, store.dispatch)
-  assert.equal(secondSubscription.dispatch, store.dispatch)
+  assert.equal(store.actions.length, 0)
+
+  setTimeout(() => {
+    assert.equal(store.actions[0], firstSubscriptionStubAction)
+    assert.equal(store.actions[1], secondSubscriptionStubAction)
+
+    done()
+  })
 })
