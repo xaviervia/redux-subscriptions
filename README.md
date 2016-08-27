@@ -1,5 +1,7 @@
 # redux-subscriptions
 
+**Deprecated in favor of https://github.com/xaviervia/redux-haiku**
+
 Higher-level API for the Redux `store.subscribe`.
 
 `redux-subscriptions` keeps the previous state for you and gives you the ability of running diffs in the state (using [`object-difference`](https://github.com/xaviervia/object-difference)) so that you can do something when part of the state is updated, much like the React bindings for Redux work.
